@@ -1,24 +1,9 @@
 # vuetify-survey
 
-## Project setup
-```
-yarn install
-```
+This package allows you to declaratively configure surveys. It is similar to SurveyJS, but uses Vuetify to both render the survey and for the editor. 
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+It provides two components:
 
-### Compiles and minifies for production
-```
-yarn build
-```
+`<VuetifySurvey>`
 
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+`<VuetifySurveyEdit>`

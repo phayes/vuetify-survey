@@ -1,0 +1,31 @@
+{
+  "title": "Survey 1",
+  "survey": [
+    {
+      "id": "question_1",
+      "type": "checkbox",
+      "props": {
+        "title": "I'm a checkbox!"
+      }
+    },
+    {
+      "id": "question_2",
+      "type": "checkboxes",
+      "items": [
+        { "value" : "one", "label": "One" },
+        { "value" : "two", "label": "Two" },
+        { "value" : "three", "label": "Three" }
+      ],
+      "props": {
+        "title": "Checkboxes!"
+      }
+    },
+    {
+      "id": "question_3",
+      "type": "text-field",
+      "props": {
+        "title": "Text field!"
+      }
+    }
+  ]
+}
