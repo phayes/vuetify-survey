@@ -11,4 +11,4 @@ It provides two components:
 
 # Use-case
 
-You can use `<VuetifySurveyEdit>` to let your users build up questionaires, then store the resulting declarative definition in a database.  The stored definitions can then be loaded and displayed to other users. 
+You can use `<VuetifySurveyEdit>` to let your users build up questionaires, then store the resulting declarative definition in a database.  The stored definitions can then be loaded and displayed to other users using `<VuetifySurvey>`. 
