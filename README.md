@@ -1,12 +1,12 @@
-# vuetify-survey
+# Vuetify Survey
 
 This package allows you to declaratively configure surveys and questionnaires. It is similar to SurveyJS, but uses Vuetify to both render the survey and for the (optional) editor. 
 
 It provides two components:
 
-`<VuetifySurvey>`
+`<VuetifySurvey>`: Allows end-users to fill out surveys.
 
-`<VuetifySurveyEditor>`
+`<VuetifySurveyEditor>`: Allows other users to configure declarative survey definitions. 
 
 ## Use-case
 
