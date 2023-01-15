@@ -57,19 +57,19 @@ To view sample application run `yarn install && yarn serve`
  - `show_item_id`
      - type: `Boolean`
      - default: `true`
-     - description: `Set to false to disallow the user from seeing or editing the underlying identifier for each item` 
+     - description: Set to `false` to disallow the user from seeing or editing the underlying identifier for each item
  - `allow_edit_item_class`
      - type: `Boolean`
      - default: `true`
-     - description: `Set to false to disallow the user from editing the css class for each item` 
+     - description: Set to `false` to disallow the user from editing the css class for each item
  - `allow_edit_item_class`
      - type: `Boolean`
      - default: `true`
-     - description: `Set to false to disallow the user from editing the css style for each item` 
+     - description: Set to `false` to disallow the user from editing the css style for each item
  - `allow_edit_item_visible`
      - type: `Boolean`
      - default: `true`
-     - description: `Set to false to disallow the user from editing the visibility of the item`
+     - description: Set to `false` to disallow the user from editing the visibility of the item
 
 ------------
 
