@@ -4,9 +4,9 @@ This package allows you to declaratively configure surveys and questionnaires. I
 
 It provides two components:
 
-`<VuetifySurvey>`
+`<VuetifySurvey>`: Allowing end-users to fill out surveys.
 
-`<VuetifySurveyEditor>`
+`<VuetifySurveyEditor>`: Allowing other users to configure declarative survey definitions. 
 
 ## Use-case
 
