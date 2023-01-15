@@ -165,6 +165,6 @@ For survey items that provide varios options to select (`select`, `radio-group`,
 
 ### Data Structure: `SurveyData`
 
-A simple key => value object that represents the data saved by the rendere survey.  The keys in `SurveyData` correspond to the `id` field of the `ItemDefinition` object.
+A simple key => value object that represents the data saved by the survey.  The keys in `SurveyData` correspond to the `id` field of the `ItemDefinition` object.
 
 
