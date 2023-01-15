@@ -16,7 +16,9 @@
     <v-main>
       <v-layout>
         <v-flex xs6>
+          
           <v-sheet elevation="6" class="pa-6 ma-6">
+            <h3 class="mb-6">Survey Editor <span style="font-family: Courier,monispace">&lt;VuetifySurveyEditor&gt;</span></h3>
             <VuetifySurveyEditor v-model="survey_def" />
           </v-sheet>
 
@@ -32,6 +34,7 @@
         </v-flex>
         <v-flex xs6>
           <v-sheet elevation="6" class="pa-6 ma-6">
+            <h3 class="mb-6">Survey Viewer <span style="font-family: Courier,monispace">&lt;VuetifySurvey&gt;</span></h3>
             <VuetifySurvey :survey="survey_def" v-model="survey_data" />
           </v-sheet>
 
@@ -51,8 +54,8 @@
 </template>
 
 <script>
-import VuetifySurvey from "./components/VuetifySurvey";
-import VuetifySurveyEditor from "./components/VuetifySurveyEditor";
+import VuetifySurvey from "./VuetifySurvey";
+import VuetifySurveyEditor from "./VuetifySurveyEditor";
 
 export default {
   name: "App",
@@ -65,39 +68,8 @@ export default {
   data: () => ({
     survey_data: {},
     survey_def: {
-      title: "Survey 1",
-      items: [
-        {
-          id: "question_1",
-          type: "checkbox",
-          title: "Some Title",
-          instructions: "Some instructions",
-          props: {
-            label: "I'm a checkbox!",
-          },
-        },
-        {
-          id: "question_2",
-          type: "checkboxes",
-          title: "Some other title",
-          items: [
-            { value: "one", text: "One" },
-            { value: "two", text: "Two" },
-            { value: "three", text: "Three" },
-          ],
-          props: {
-            title: "Checkboxes!",
-          },
-        },
-        {
-          id: "question_3",
-          type: "text-field",
-          props: {
-            label: "Text field!",
-          },
-          visible: "question_1 || question_2.includes('one')",
-        },
-      ],
+      title: "",
+      items: []
     },
   }),
   computed: {

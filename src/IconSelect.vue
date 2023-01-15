@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import mdi_icons from "../mdi_icons";
+import mdi_icons from "./mdi_icons";
 
 export default {
   name: "IconSelect",

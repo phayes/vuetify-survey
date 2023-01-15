@@ -364,12 +364,12 @@
           />
         </v-expansion-panel-content>
       </v-expansion-panel>
+
+      <!--
       <v-expansion-panel>
         <v-expansion-panel-header>Validation</v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-checkbox v-model="active_item.required" label="Required" />
-
-          <!-- Regex -->
           <v-text-field
             v-if="active_item.type === 'text-field' || active_item.type === 'number-field' || active_item.type === 'textarea'"
             label="Regex"
@@ -380,11 +380,15 @@
           />
         </v-expansion-panel-content>
       </v-expansion-panel>
+      
+      -->
+      
       <v-expansion-panel v-if="allow_edit_class || allow_edit_style || allow_edit_visible">
         <v-expansion-panel-header>Visibility and CSS</v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-text-field
             v-if="allow_edit_visible"
+            v-model="active_item.visible"
             outlined
             dense
             label="Visibility"
@@ -393,6 +397,7 @@
           />
           <v-text-field
             v-if="allow_edit_class"
+            v-model="active_item.class"
             outlined
             dense
             label="Class"
@@ -400,6 +405,7 @@
           />
           <v-text-field
             v-if="allow_edit_style"
+            v-model="active_item.style"
             outlined
             dense
             label="Style"

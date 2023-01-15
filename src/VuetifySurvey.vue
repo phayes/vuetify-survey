@@ -14,11 +14,11 @@
         <v-checkbox
           v-if="item.type === 'checkbox'"
           v-model="active_data[item.id]"
-          :class="item.class"
+          :class="'vuetify-survey-item vuetify-survey-item-checkbox ' + item.class"
           :style="item.style"
           v-bind="translate_props(item.props)"
         ></v-checkbox>
-        <div v-if="item.type === 'checkboxes'" :class="item.class" :style="item.style">
+        <div v-if="item.type === 'checkboxes'" :class="'vuetify-survey-item vuetify-survey-item-checkboxes ' + item.class" :style="item.style">
           <v-checkbox
             v-for="(checkbox_item, checkbox_item_idx) in item.items"
             :key="checkbox_item_idx"
@@ -30,17 +30,10 @@
             v-bind="translate_props(item.props)"
           ></v-checkbox>
         </div>
-        <v-autocomplete
-          v-if="item.type === 'autocomplete'"
-          v-model="active_data[item.id]"
-          :class="item.class"
-          :style="item.style"
-          v-bind="translate_props(item.props)"
-        ></v-autocomplete>
         <v-select
           v-if="item.type === 'select'"
           v-model="active_data[item.id]"
-          :class="item.class"
+          :class="'vuetify-survey-item vuetify-survey-item-select ' + item.class"
           :style="item.style"
           :items="item.items"
           v-bind="translate_props(item.props)"
@@ -48,7 +41,7 @@
         <v-text-field
           v-if="item.type === 'text-field'"
           v-model="active_data[item.id]"
-          :class="item.class"
+          :class="'vuetify-survey-item vuetify-survey-item-text-field ' + item.class"
           :style="item.style"
           v-bind="translate_props(item.props)"
         ></v-text-field>
@@ -59,7 +52,7 @@
           :max="item.max"
           :step="item.step ? item.step : 'any'"
           v-model="active_data[item.id]"
-          :class="item.class"
+          :class="'vuetify-survey-item vuetify-survey-item-number-field ' + item.class"
           :style="item.style"
           :size="number_field_size(item)"
           v-bind="translate_props(item.props)"
@@ -67,7 +60,7 @@
         <v-textarea
           v-if="item.type === 'textarea'"
           v-model="active_data[item.id]"
-          :class="item.class"
+          :class="'vuetify-survey-item vuetify-survey-item-textarea ' + item.class"
           :style="item.style"
           v-bind="translate_props(item.props)"
         ></v-textarea>
@@ -75,28 +68,28 @@
         <v-range-slider
           v-if="item.type === 'range-slider'"
           v-model="active_data[item.id]"
-          :class="item.class"
+          :class="'vuetify-survey-item vuetify-survey-item-range-slider ' + item.class"
           :style="item.style"
           v-bind="translate_props(item.props)"
         ></v-range-slider>
         <v-switch
           v-if="item.type === 'switch'"
           v-model="active_data[item.id]"
-          :class="item.class"
+          :class="'vuetify-survey-item vuetify-survey-item-switch ' + item.class"
           :style="item.style"
           v-bind="translate_props(item.props)"
         ></v-switch>
         <v-rating
           v-if="item.type === 'rating'"
           v-model="active_data[item.id]"
-          :class="item.class"
+          :class="'vuetify-survey-item vuetify-survey-item-rating ' + item.class"
           :style="item.style"
           v-bind="translate_props(item.props)"
         ></v-rating>
         <v-rating
           v-if="item.type === 'mood'"
           v-model="active_data[item.id]"
-          :class="item.class"
+          :class="'vuetify-survey-item vuetify-survey-item-mood ' + item.class"
           :style="item.style"
           v-bind="translate_props(item.props)"
         >
@@ -141,6 +134,8 @@
           :close-on-content-click="false"
           transition="scale-transition"
           offset-y
+          :class="'vuetify-survey-item vuetify-survey-item-date ' + item.class"
+          :style="item.style"
           min-width="auto"
         >
           <template v-slot:activator="{ on, attrs }">
@@ -163,6 +158,8 @@
           :close-on-content-click="false"
           transition="scale-transition"
           offset-y
+          :class="'vuetify-survey-item vuetify-survey-item-birthday ' + item.class"
+          :style="item.style"
           min-width="auto"
         >
           <template v-slot:activator="{ on, attrs }">
@@ -190,7 +187,7 @@
 
 <script>
 // eslint-disable-next-line
-import Interpreter from "../interpreter.js";
+import Interpreter from "./interpreter.js";
 import * as acorn from "acorn";
 import Vue from "vue";
 
