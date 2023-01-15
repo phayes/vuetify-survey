@@ -94,8 +94,8 @@ To view sample application run `yarn install && yarn serve`
      - description: `id` is used as the key for storing output values in `SurveyData`. Items that share the same `id` will share the same data in the survey. 
 - `type`
      - type: `String` (enumerated)
-     - allowed_values: `text-field`, `number-field`, `textarea`, `checkbox`, `switch`, `select`, `radio-group`, `checkboxes`, `date`, `birthday`, `rating`, `mood`
      - required
+     - allowed_values: `text-field`, `number-field`, `textarea`, `checkbox`, `switch`, `select`, `radio-group`, `checkboxes`, `date`, `birthday`, `rating`, `mood`
 - `props`
      - type: `Object`
      - description: key => value mapping of props that will be passed to the vuetify component. The key will be translated to kebab-case before being passed to the vuetify component.
