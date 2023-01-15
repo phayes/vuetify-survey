@@ -37,10 +37,10 @@ To view sample application run `yarn install && yarn serve`
 
 #### slots:
  - `before-item`
-     - binding: item of type `VuetifyItemDefinition`
+     - binding: item of type `ItemDefinition`
      - example: `<VuetifySurvey><template v-slot:before-item="item">{{ item.title }}</template></VuetifySurvey>`
  - `after-item`
-     - binding: item of type `VuetifyItemDefinition`
+     - binding: item of type `ItemDefinition`
      - example: `<VuetifySurvey><template v-slot:after-item="item">{{ item.title }}</template></VuetifySurvey>`
 
 ------------------
