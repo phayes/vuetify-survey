@@ -20,4 +20,49 @@ To view sample application run `yarn install && yarn serve`
 
 ## API Reference
 
-TODO
+### Component: `<VuetifySurvey>`
+
+`<VuetifySurvey>` is responsible for rendering a `SurveyDefinition`. 
+
+#### props:
+- `value`
+     - type: `SurveyData` object
+     - required: true
+     - example: `<VuetifySurvey v-model="survey_data">`
+- `survey`
+     - type: `SurveyDefinition` object
+     - required: true
+
+#### slots:
+ - `before-item`
+ - `after-item`
+
+### Component: `<VuetifySurveyEditor>`
+
+`<VuetifySurveyEditor>` is responsible for providing a UI for editing a `SurveyDefinition`. 
+
+#### props:
+- `value`
+     - type: `SurveyDefinition` object
+     - required: true
+     - example: `<VuetifySurveyEditor v-model="survey_definition">`
+ - `show_item_id`
+     - type: `Boolean`
+     - required: false
+     - default: `true`
+     - description: `Set to false to disallow the user from seeing or editing the underlying identifier for each item` 
+ - `allow_edit_item_class`
+     - type: `Boolean`
+     - required: false
+     - default: `true`
+     - description: `Set to false to disallow the user from editing the css class for each item` 
+ - `allow_edit_item_class`
+     - type: `Boolean`
+     - required: false
+     - default: `true`
+     - description: `Set to false to disallow the user from editing the css style for each item` 
+ - `allow_edit_item_visible`
+     - type: `Boolean`
+     - required: false
+     - default: `true`
+     - description: `Set to false to disallow the user from editing the visibility of the item`
