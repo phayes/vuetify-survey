@@ -91,7 +91,7 @@ To view sample application run `yarn install && yarn serve`
 
 `SurveyItemDefinition` is an object that defines a survey item, like a text-field or a checkbox.
 
-#### properties:
+#### core properties:
 - `id`
      - type: `String`
      - required
