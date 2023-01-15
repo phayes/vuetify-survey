@@ -118,11 +118,8 @@ To view sample application run `yarn install && yarn serve`
 
 #### additional properties:
  - `items`
-     - type: `Array` of `SurveyItemOptionDefinition`
+     - type: `Array` of `SurveyOptionDefinition`
      - applies to: `select`, `radio-group`, `checkboxes`
- - `integer_only`
-     - type: `Boolean`
-     - applies to: `number-field`
  - `integer_only`
      - type: `Boolean`
      - applies to: `number-field`
@@ -142,3 +139,25 @@ To view sample application run `yarn install && yarn serve`
      - type: `String`
      - appies to: `rating`
      - allowed_values: `mdi-star`, `mdi-cards-heart`, `mdi-emoticon-happy`
+
+
+
+------------
+
+### Data Structure: `SurveyOptionDefinition`
+
+For survey items that provide varios options to select (`select`, `radio-group`, `checkboxes`), `items` is set an array of `SurveyOptionDefinition` to define what options are available.
+
+#### core properties:
+- `value`
+     - type: `String`
+     - description: The underlying value that will be stored in the `SurveyData` object.
+- `text`
+     - type: `String`
+     - description: The text displayed to the user for this option.
+- `class`
+     - type: `String`
+     - description: Add this css class to the option element.
+- `style`
+     - type: `String`
+     - description: Add this css style to the option element.
