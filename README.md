@@ -10,9 +10,9 @@ It provides two components:
 
 # Example Application
 
-To view sample application, simply run `yarn install && yarn serve`
+To view sample application run `yarn install && yarn serve`
 
-![image](https://user-images.githubusercontent.com/207037/212561126-ea85c65a-270b-4d14-999b-d53d07bccf66.png)
+<img width="1094" alt="image" src="https://user-images.githubusercontent.com/207037/212561240-4e29e1d9-4945-49b9-b889-3a54d55f8671.png">
 
 # Use-case
 
