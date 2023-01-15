@@ -108,7 +108,7 @@ To view sample application run `yarn install && yarn serve`
      - description: key => value mapping of props that will be passed to the vuetify component. The key will be translated to kebab-case before being passed to the vuetify component.
  - `visible`
      - type: `String` | `Boolean`
-     - description: To make this item conditionally visible, use a javascript expression that evaluates to true or false. For example, if you want to show this item only if the user's age is greater than 18, use: `age > 18`.  You can use any of the item's values in the expression.  For example, if you want to show this item only if the user's age is greater than the value of question_1, use: `question_1 && age > question_1`
+     - description: To make this item conditionally visible, use a javascript expression that evaluates to true or false. For example, if you want to show this item only if the user's age is greater than 18, use: `age > 18`.  You can use any of the item's values in the expression.  For example, if you want to show this item only if the user's age is greater than the value of question_1, use: `question_1 && age > question_1`. These expressions are evaluated in a sandbox and do not have access to the DOM or other utility types such as `Date` or `Math`. 
  - `class`
      - type: `String`
      - description: Add this css class to the item
