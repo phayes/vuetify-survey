@@ -1,6 +1,6 @@
 {
   "title": "Survey 1",
-  "survey": [
+  "items": [
     {
       "id": "question_1",
       "type": "checkbox",

@@ -30,19 +30,32 @@
     </v-app-bar>
 
     <v-main>
-      <VuetifySurvey :survey="survey_data" />
+      <v-layout>
+        <v-flex xs6>
+          <v-sheet elevation="6" class="pa-6 ma-6">
+            <VuetifySurvey :survey="survey_data" />
+          </v-sheet>
+        </v-flex>
+        <v-flex xs6>
+          <v-sheet elevation="6" class="pa-6 ma-6">
+            <VuetifySurveyEditor v-model="survey_data" />
+          </v-sheet>
+        </v-flex>
+      </v-layout>
     </v-main>
   </v-app>
 </template>
 
 <script>
 import VuetifySurvey from "./components/VuetifySurvey";
+import VuetifySurveyEditor from "./components/VuetifySurveyEditor";
 
 export default {
   name: "App",
 
   components: {
     VuetifySurvey,
+    VuetifySurveyEditor,
   },
 
   data: () => ({
@@ -63,9 +76,9 @@ export default {
           type: "checkboxes",
           title: "Some other title",
           items: [
-            { value: "one", label: "One" },
-            { value: "two", label: "Two" },
-            { value: "three", label: "Three" },
+            { value: "one", text: "One" },
+            { value: "two", text: "Two" },
+            { value: "three", text: "Three" },
           ],
           props: {
             title: "Checkboxes!",
