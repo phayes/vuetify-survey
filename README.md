@@ -83,7 +83,7 @@ To view sample application run `yarn install && yarn serve`
 - `instructions`
      - type: `String`
 - `items`
-     - type: `Array` of `SurveyItemDefinitionItem`
+     - type: `Array` of `SurveyItemDefinition`
 
 ------------
 
@@ -100,6 +100,9 @@ To view sample application run `yarn install && yarn serve`
      - type: `String` (enumerated)
      - required
      - allowed_values: `text-field`, `number-field`, `textarea`, `checkbox`, `switch`, `select`, `radio-group`, `checkboxes`, `date`, `birthday`, `rating`, `mood`
+- `default_value`
+     - type: `any`
+     - description: Apply this default value to the item. When not set, a reasonable default is used.
 - `props`
      - type: `Object`
      - description: key => value mapping of props that will be passed to the vuetify component. The key will be translated to kebab-case before being passed to the vuetify component.
@@ -113,3 +116,29 @@ To view sample application run `yarn install && yarn serve`
      - type: `String`
      - description: Add this css style to the item
 
+#### additional properties:
+ - `items`
+     - type: `Array` of `SurveyItemOptionDefinition`
+     - applies to: `select`, `radio-group`, `checkboxes`
+ - `integer_only`
+     - type: `Boolean`
+     - applies to: `number-field`
+ - `integer_only`
+     - type: `Boolean`
+     - applies to: `number-field`
+ - `min`
+     - type: `Number`
+     - applies to: `number-field`
+ - `max`
+     - type: `Number`
+     - applies to: `number-field`
+ - `step`
+     - type: `Number`
+     - applies to: `number-field`
+ - `maxlength`
+     - type: `Number`
+     - applies to: `text-field`, `textarea`
+ - `rating_icon`
+     - type: `String`
+     - appies to: `rating`
+     - allowed_values: `mdi-star`, `mdi-cards-heart`, `mdi-emoticon-happy`
