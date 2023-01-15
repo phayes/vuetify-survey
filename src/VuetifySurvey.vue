@@ -42,6 +42,26 @@
           :items="item.items"
           v-bind="translate_props(item.props)"
         ></v-select>
+
+        <v-radio-group
+          v-if="item.type === 'radio-group'"
+          v-model="active_data[item.id]"
+          :class="'vuetify-survey-item vuetify-survey-item-radio-group ' + item.class"
+          :style="item.style"
+          :items="item.items"
+          v-bind="translate_props(item.props)"
+        >
+          <v-radio
+            v-for="(radio_item, radio_item_idx) in item.items"
+            :key="radio_item_idx"
+            :label="radio_item.text"
+            :value="radio_item.value"
+            :class="radio_item.class"
+            :style="radio_item.style"
+            v-bind="translate_props(item.props)"
+          ></v-radio>
+        </v-radio-group>
+
         <v-text-field
           v-if="item.type === 'text-field'"
           v-model="active_data[item.id]"
@@ -227,7 +247,7 @@ export default {
         let default_data;
 
         survey.items.forEach((item) => {
-          let item_id = item.id
+          let item_id = item.id;
           if (!(item_id in this.active_data)) {
             if (!default_data) default_data = this.get_default_data();
             Vue.set(this.active_data, item_id, default_data[item_id]);
@@ -269,6 +289,8 @@ export default {
           } else if (item.type == "rating") {
             default_data[item.id] = null;
           } else if (item.type == "mood") {
+            default_data[item.id] = null;
+          } else if (item.type == "select" || item.type == "radio-group") {
             default_data[item.id] = null;
           }
         }

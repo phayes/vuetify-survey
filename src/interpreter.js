@@ -2292,10 +2292,6 @@ Interpreter.prototype.maybeThrowRegExp = function(nativeRegExp, callback) {
       // Ok: Web Workers available.
       ok = true;
     } else if (typeof require === 'function') {
-      // Try to load Node's vm module.
-      try {
-        Interpreter.vm = require('vm');
-      } catch (_e) {}
       ok = !!Interpreter.vm;
     } else {
       // Fail: Neither Web Workers nor vm available.

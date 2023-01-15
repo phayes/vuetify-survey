@@ -158,6 +158,9 @@ export default {
       if (item.type == "select") {
         return "mdi-form-dropdown";
       }
+      if (item.type == "radio-group") {
+        return "mdi-radiobox-marked";
+      }
       if (item.type == "autocomplete") {
         return "mdi-text-search";
       }

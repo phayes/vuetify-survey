@@ -51,9 +51,9 @@
       @change="id_changed = true"
     />
 
-    <!-- Select components for select and checkboxes -->
+    <!-- Select components for select, checkboxes, and radio-group -->
     <v-sheet
-      v-if="active_item.type == 'select' || active_item.type == 'checkboxes'"
+      v-if="active_item.type == 'select' || active_item.type == 'checkboxes' || active_item.type == 'radio-group'"
       elevation="1"
       class="pa-6 mb-6"
     >
@@ -322,7 +322,7 @@
             persistent-hint
           />
           <v-checkbox
-            v-if="active_item.type === 'text-field' || active_item.type === 'number-field' || active_item.type === 'checkbox' || active_item.type === 'checkboxes' || active_item.type === 'select'"
+            v-if="active_item.type === 'text-field' || active_item.type === 'number-field' || active_item.type === 'checkbox' || active_item.type === 'checkboxes' || active_item.type === 'select' || active_item.type === 'radio-group'"
             v-model="active_item.props.dense"
             label="Dense: Reduce the field height"
           />
@@ -458,6 +458,7 @@ export default {
         { text: "Switch", value: "switch" },
         { text: "Checkboxes", value: "checkboxes" },
         { text: "Select", value: "select" },
+        { text: "Radio Buttons", value: "radio-group" },
         { text: "Date", value: "date" },
         { text: "Birthday", value: "birthday" },
         { text: "Rating", value: "rating" },
@@ -488,7 +489,8 @@ export default {
         }
         if (
           this.active_item.type == "checkboxes" ||
-          this.active_item.type == "select"
+          this.active_item.type == "select" || 
+          this.active_item.type == "radio-group"
         ) {
           if (!this.active_item.items) {
             Vue.set(this.active_item, "items", [
@@ -663,6 +665,9 @@ export default {
       }
       if (item_type == "select") {
         return "mdi-form-dropdown";
+      }
+      if (item_type == "radio-group") {
+        return "mdi-radiobox-marked";
       }
       if (item_type == "autocomplete") {
         return "mdi-text-search";
