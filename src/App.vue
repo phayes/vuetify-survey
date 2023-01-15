@@ -90,6 +90,7 @@ export default {
           props: {
             label: "Text field!",
           },
+          visible: "question_1 || question_2.includes('one')",
         },
       ],
     },

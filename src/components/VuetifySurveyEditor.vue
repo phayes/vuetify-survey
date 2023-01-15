@@ -21,31 +21,33 @@
     </v-layout>
 
     <v-list subheader two-line>
-      <div v-for="(item, idx) in active_survey.items" :key="idx">
-        <v-divider />
-        <v-list-item>
-          <v-list-item-avatar>
-            <v-icon class="grey lighten-1" dark>{{ item_icon(item) }}</v-icon>
-          </v-list-item-avatar>
+      <draggable v-model="active_survey.items">
+        <div v-for="(item, idx) in active_survey.items" :key="idx">
+          <v-divider />
+          <v-list-item style="cursor: grab; background-color: white">
+            <v-list-item-avatar>
+              <v-icon class="grey lighten-1" dark>{{ item_icon(item) }}</v-icon>
+            </v-list-item-avatar>
 
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title"></v-list-item-title>
-            <v-list-item-subtitle v-if="show_item_id" v-text="item.id"></v-list-item-subtitle>
-          </v-list-item-content>
+            <v-list-item-content>
+              <v-list-item-title v-text="item.title"></v-list-item-title>
+              <v-list-item-subtitle v-if="show_item_id" v-text="item.id"></v-list-item-subtitle>
+            </v-list-item-content>
 
-          <v-list-item-action>
-            <v-btn icon @click="edit_item(idx)">
-              <v-icon color="grey lighten-1">mdi-pencil</v-icon>
-            </v-btn>
-          </v-list-item-action>
-          <v-list-item-action>
-            <v-btn icon @click="delete_item(idx)">
-              <v-icon color="grey lighten-1">mdi-delete</v-icon>
-            </v-btn>
-          </v-list-item-action>
-        </v-list-item>
-        <v-divider />
-      </div>
+            <v-list-item-action>
+              <v-btn icon @click="edit_item(idx)">
+                <v-icon color="grey lighten-1">mdi-pencil</v-icon>
+              </v-btn>
+            </v-list-item-action>
+            <v-list-item-action>
+              <v-btn icon @click="delete_item(idx)">
+                <v-icon color="grey lighten-1">mdi-delete</v-icon>
+              </v-btn>
+            </v-list-item-action>
+          </v-list-item>
+          <v-divider />
+        </div>
+      </draggable>
     </v-list>
 
     <v-dialog v-model="item_editor_dialog" max-width="1200">
@@ -82,11 +84,12 @@
 
 <script>
 import VuetifySurveyItemEditor from "./VuetifySurveyItemEditor.vue";
+import draggable from "vuedraggable";
 import Vue from "vue";
 
 export default {
   name: "VuetifySurveyEditor",
-  components: { VuetifySurveyItemEditor },
+  components: { VuetifySurveyItemEditor, draggable },
   props: {
     value: {
       type: Object,
@@ -103,6 +106,19 @@ export default {
     show_item_id: {
       type: Boolean,
       default: true,
+    },
+    default_new_item: {
+      type: Function,
+      default: () => {
+        return (index) => {
+          return {
+            id: "question_" + (index + 1),
+            title: "",
+            type: "text-field",
+            props: {},
+          };
+        };
+      },
     },
   },
   data() {
@@ -167,12 +183,15 @@ export default {
       this.item_editor_dialog = true;
     },
     add_item() {
-      this.active_item = {
-        id: "",
-        title: "",
-        type: "text-field",
-        props: {},
-      };
+      if (this.default_new_item instanceof Function) {
+        this.active_item = JSON.parse(
+          JSON.stringify(
+            this.default_new_item(this.active_survey.items.length)
+          )
+        );
+      } else {
+        this.active_item = JSON.parse(JSON.stringify(this.default_new_item));
+      }
 
       this.active_item_idx = null;
       this.item_editor_dialog = true;

@@ -17,6 +17,7 @@
           :items="type_items"
           outlined
           v-model="active_item.type"
+          :prepend-inner-icon="item_icon(active_item.type)"
         >
           <template v-slot:item="{ item }">
             <v-list-item-avatar>
@@ -174,7 +175,13 @@
       </v-flex>
 
       <v-flex xs2>
-        <v-select label="Icon" :items="rating_icons" v-model="active_item.rating_icon">
+        <v-select
+          outlined
+          label="Icon"
+          :items="rating_icons"
+          v-model="active_item.rating_icon"
+          :prepend-inner-icon="active_item.rating_icon"
+        >
           <template v-slot:item="{ item }">
             <v-list-item-avatar>
               <v-icon>{{ item.value }}</v-icon>
@@ -217,7 +224,72 @@
       </v-expansion-panel>
       <v-expansion-panel>
         <v-expansion-panel-header>Default Value</v-expansion-panel-header>
-        <v-expansion-panel-content>Default value..</v-expansion-panel-content>
+        <v-expansion-panel-content>
+          <v-checkbox
+            v-if="active_item.type === 'checkbox'"
+            v-model="active_item.default_value"
+            :label="active_item.props.label || active_item.title"
+          ></v-checkbox>
+          <div v-if="active_item.type === 'checkboxes'">
+            <v-checkbox
+              v-for="(checkbox_item, checkbox_item_idx) in active_item.items"
+              :key="checkbox_item_idx"
+              :label="checkbox_item.text"
+              :value="checkbox_item.value"
+              v-model="active_item.default_value"
+            ></v-checkbox>
+          </div>
+          <v-select
+            v-if="active_item.type === 'select'"
+            v-model="active_item.default_value"
+            :items="active_item.items"
+          ></v-select>
+          <v-text-field v-if="active_item.type === 'text-field'" v-model="active_item.default_value"></v-text-field>
+          <v-text-field
+            v-if="active_item.type === 'number-field'"
+            type="number"
+            :min="active_item.min"
+            :max="active_item.max"
+            :step="active_item.step ? item.step : 'any'"
+            v-model="active_item.default_value"
+          ></v-text-field>
+          <v-textarea
+            v-if="active_item.type === 'textarea'"
+            v-model="active_item.default_value"
+          ></v-textarea>
+          <v-slider
+            v-if="active_item.type === 'slider'"
+            v-model="active_item.default_value"
+            :min="active_item.min"
+            :max="active_item.max"
+            :step="active_item.step ? item.step : 'any'"
+          ></v-slider>
+          <v-range-slider
+            v-if="active_item.type === 'range-slider'"
+            v-model="active_item.default_value"
+            :min="active_item.min"
+            :max="active_item.max"
+            :step="active_item.step ? item.step : 'any'"
+          ></v-range-slider>
+          <v-switch
+            v-if="active_item.type === 'switch'"
+            v-model="active_item.default_value"
+            :label="active_item.props.label || active_item.title"
+          ></v-switch>
+          <v-rating
+            v-if="active_item.type === 'rating'"
+            :length="active_item.props.length"
+            v-model="active_item.default_value"
+          ></v-rating>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+      <v-expansion-panel>
+        <v-expansion-panel-header>Properties</v-expansion-panel-header>
+        <v-expansion-panel-content>Props config goes here...</v-expansion-panel-content>
+      </v-expansion-panel>
+      <v-expansion-panel>
+        <v-expansion-panel-header>Validation</v-expansion-panel-header>
+        <v-expansion-panel-content>Validation options goes here...</v-expansion-panel-content>
       </v-expansion-panel>
       <v-expansion-panel v-if="allow_edit_class || allow_edit_style">
         <v-expansion-panel-header>Class and Style</v-expansion-panel-header>
@@ -312,6 +384,9 @@ export default {
               { value: "", text: "" },
               { value: "", text: "" },
             ]);
+          }
+          if (!this.active_item.default_value) {
+            Vue.set(this.active_item, "default_value", []);
           }
         } else {
           delete this.active_item.items;
