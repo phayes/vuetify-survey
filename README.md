@@ -6,11 +6,11 @@ It provides two components:
 
 `<VuetifySurvey>`
 
-`<VuetifySurveyEdit>`
+`<VuetifySurveyEditor>`
 
 ## Use-case
 
-You can use `<VuetifySurveyEdit>` to let your users build up questionaires, then store the resulting declarative definition in a database.  The stored definitions can then be loaded and displayed to other users using `<VuetifySurvey>`. 
+You can use `<VuetifySurveyEditor>` to let your users build up questionaires, then store the resulting declarative definition in a database.  The stored definitions can then be loaded and displayed to other users using `<VuetifySurvey>`. 
 
 ## Example Application
 
