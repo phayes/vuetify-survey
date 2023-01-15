@@ -141,7 +141,6 @@ To view sample application run `yarn install && yarn serve`
      - allowed_values: `mdi-star`, `mdi-cards-heart`, `mdi-emoticon-happy`
 
 
-
 ------------
 
 ### Data Structure: `OptionDefinition`
@@ -161,3 +160,11 @@ For survey items that provide varios options to select (`select`, `radio-group`,
 - `style`
      - type: `String`
      - description: Add this css style to the option element.
+
+------------
+
+### Data Structure: `SurveyData`
+
+A simple key => value object that represents the data saved by the rendere survey.  The keys in `SurveyData` correspond to the `id` field of the `ItemDefinition` object.
+
+
