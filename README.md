@@ -71,6 +71,8 @@ To view sample application run `yarn install && yarn serve`
      - default: `true`
      - description: `Set to false to disallow the user from editing the visibility of the item`
 
+------------
+
 ### Data Structure: `SurveyDefinition`
 
 `SurveyDefinition` is an object that defines a survey.
@@ -82,6 +84,8 @@ To view sample application run `yarn install && yarn serve`
      - type: `String`
 - `items`
      - type: `Array` of `SurveyItemDefinitionItem`
+
+------------
 
 ### Data Structure: `SurveyItemDefinition`
 
