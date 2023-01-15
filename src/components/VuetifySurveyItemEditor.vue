@@ -35,13 +35,18 @@
       v-if="show_id && !id_changed"
       @click="id_changed = true"
       style="min-height: 22px; margin-left: 5px; margin-top:-10px"
-    >{{ active_item.id }}</p>
+    >
+      id:
+      <span style="font-family: Courier, monospace;">{{ active_item.id }}</span>
+    </p>
 
     <v-text-field
       v-if="show_id && id_changed"
       label="Identifier"
       dense
+      outlined
       class="vuetify-survey-editor-item-id"
+      style="font-family: Courier, monospace;"
       v-model="active_item.id"
       @change="id_changed = true"
     />
@@ -149,6 +154,26 @@
       </v-flex>
     </v-layout>
 
+    <!-- Text Options -->
+    <v-layout
+      v-if="active_item && active_item.props && active_item.type == 'text-field' || active_item.type == 'textarea'"
+      justify-space-between
+    >
+      <v-flex xs3>
+        <v-text-field
+          label="Maximum Length"
+          type="number"
+          step="1"
+          min="1"
+          dense
+          outlined
+          v-model="active_item.maxlength"
+        />
+      </v-flex>
+      <v-flex xs3></v-flex>
+      <v-flex xs3></v-flex>
+    </v-layout>
+
     <!-- Rating options -->
     <v-layout
       v-if="active_item && active_item.props && active_item.type == 'rating'"
@@ -241,22 +266,25 @@
           </div>
           <v-select
             v-if="active_item.type === 'select'"
+            outlined
             v-model="active_item.default_value"
             :items="active_item.items"
           ></v-select>
-          <v-text-field v-if="active_item.type === 'text-field'" v-model="active_item.default_value"></v-text-field>
+          <v-text-field
+            v-if="active_item.type === 'text-field'"
+            outlined
+            v-model="active_item.default_value"
+          ></v-text-field>
           <v-text-field
             v-if="active_item.type === 'number-field'"
             type="number"
+            outlined
             :min="active_item.min"
             :max="active_item.max"
             :step="active_item.step ? item.step : 'any'"
             v-model="active_item.default_value"
           ></v-text-field>
-          <v-textarea
-            v-if="active_item.type === 'textarea'"
-            v-model="active_item.default_value"
-          ></v-textarea>
+          <v-textarea v-if="active_item.type === 'textarea'" v-model="active_item.default_value"></v-textarea>
           <v-slider
             v-if="active_item.type === 'slider'"
             v-model="active_item.default_value"
@@ -285,24 +313,95 @@
       </v-expansion-panel>
       <v-expansion-panel>
         <v-expansion-panel-header>Properties</v-expansion-panel-header>
-        <v-expansion-panel-content>Props config goes here...</v-expansion-panel-content>
+        <v-expansion-panel-content>
+          <v-checkbox v-model="active_item.props.readonly" label="Readonly" />
+          <v-checkbox
+            v-if="active_item.type === 'text-field' || active_item.type === 'number-field' || active_item.type === 'textarea' || active_item.type === 'select'"
+            v-model="active_item.props.outlined"
+            label="Outlined"
+            persistent-hint
+          />
+          <v-checkbox
+            v-if="active_item.type === 'text-field' || active_item.type === 'number-field' || active_item.type === 'checkbox' || active_item.type === 'checkboxes' || active_item.type === 'select'"
+            v-model="active_item.props.dense"
+            label="Dense: Reduce the field height"
+          />
+          <v-checkbox
+            v-if="active_item.maxlength"
+            v-model="active_item.props.counter"
+            label="Counter: Use a counter to inform a user of the character limit."
+          />
+          <v-checkbox
+            v-if="active_item.type === 'text-field' || active_item.type === 'number-field' || active_item.type === 'textarea'"
+            v-model="active_item.props.clearable"
+            label="Clearable: Provides a clearing icon when the field is not empty."
+          />
+          <v-text-field
+            v-if="active_item.type === 'text-field' || active_item.type === 'number-field' || active_item.type === 'textarea' || active_item.type === 'select'"
+            v-model="active_item.props.hint"
+            label="Hint"
+            outlined
+            hint="The hint property adds the provided string beneath the text field. Use 'Persistent Hint' to keep the hint visible when the text field is not focused."
+          />
+          <v-checkbox
+            v-if="active_item.props.hint"
+            v-model="active_item.props.persistent_hint"
+            label="Persistent Hint: Keep the hint visible when the text field is not focused"
+          />
+          <v-text-field
+            v-if="active_item.type === 'text-field' || active_item.type === 'number-field' || active_item.type === 'select'"
+            v-model="active_item.props.prefix"
+            label="Prefix"
+            outlined
+            hint="Prepend inline non-modifiable text next to the text field."
+          />
+          <v-text-field
+            v-if="active_item.type === 'text-field' || active_item.type === 'number-field' || active_item.type === 'select'"
+            v-model="active_item.props.suffix"
+            label="Suffix"
+            outlined
+            hint="Append inline non-modifiable text next to the text field."
+          />
+        </v-expansion-panel-content>
       </v-expansion-panel>
       <v-expansion-panel>
         <v-expansion-panel-header>Validation</v-expansion-panel-header>
-        <v-expansion-panel-content>Validation options goes here...</v-expansion-panel-content>
-      </v-expansion-panel>
-      <v-expansion-panel v-if="allow_edit_class || allow_edit_style">
-        <v-expansion-panel-header>Class and Style</v-expansion-panel-header>
         <v-expansion-panel-content>
+          <v-checkbox v-model="active_item.required" label="Required" />
+
+          <!-- Regex -->
+          <v-text-field
+            v-if="active_item.type === 'text-field' || active_item.type === 'number-field' || active_item.type === 'textarea'"
+            label="Regex"
+            outlined
+            dense
+            hint="Enter a regular expression to validate the input"
+            v-model="active_item.regex"
+          />
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+      <v-expansion-panel v-if="allow_edit_class || allow_edit_style || allow_edit_visible">
+        <v-expansion-panel-header>Visibility and CSS</v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <v-text-field
+            v-if="allow_edit_visible"
+            outlined
+            dense
+            label="Visibility"
+            class="vuetify-survey-editor-item-visible"
+            hint="To make this item conditionally visible, enter a javascript expression that evaluates to true or false.  For example, if you want to show this item only if the user's age is greater than 18, enter: 'age > 18'.  You can use any of the item's values in the expression.  For example, if you want to show this item only if the user's age is greater than the value of question_1, enter: 'question_1 &amp;&amp; age > question_1'."
+          />
           <v-text-field
             v-if="allow_edit_class"
             outlined
+            dense
             label="Class"
             class="vuetify-survey-editor-item-class"
           />
           <v-text-field
             v-if="allow_edit_style"
             outlined
+            dense
             label="Style"
             class="vuetify-survey-editor-item-style"
           />
@@ -330,6 +429,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    allow_edit_visible: {
+      type: Boolean,
+      default: true,
+    },
     show_id: {
       type: Boolean,
       default: true,
@@ -349,6 +452,8 @@ export default {
         { text: "Switch", value: "switch" },
         { text: "Checkboxes", value: "checkboxes" },
         { text: "Select", value: "select" },
+        { text: "Date", value: "date" },
+        { text: "Birthday", value: "birthday" },
         { text: "Rating", value: "rating" },
         { text: "Mood", value: "mood" },
       ],
@@ -561,6 +666,12 @@ export default {
       }
       if (item_type == "mood") {
         return "mdi-emoticon-happy";
+      }
+      if (item_type == "birthday") {
+        return "mdi-calendar-account";
+      }
+      if (item_type == "date") {
+        return "mdi-calendar";
       }
     },
   },

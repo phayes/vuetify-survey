@@ -109,14 +109,12 @@ export default {
     },
     default_new_item: {
       type: Function,
-      default: () => {
-        return (index) => {
-          return {
-            id: "question_" + (index + 1),
-            title: "",
-            type: "text-field",
-            props: {},
-          };
+      default: (index) => {
+        return {
+          id: "question_" + (index + 1),
+          title: "",
+          type: "text-field",
+          props: {},
         };
       },
     },
@@ -169,6 +167,12 @@ export default {
       if (item.type == "mood") {
         return "mdi-emoticon-happy";
       }
+      if (item.type == "birthday") {
+        return "mdi-calendar-account";
+      }
+      if (item.type == "date") {
+        return "mdi-calendar";
+      }
     },
     delete_item(idx) {
       Vue.delete(this.active_survey.items, idx);
@@ -185,9 +189,7 @@ export default {
     add_item() {
       if (this.default_new_item instanceof Function) {
         this.active_item = JSON.parse(
-          JSON.stringify(
-            this.default_new_item(this.active_survey.items.length)
-          )
+          JSON.stringify(this.default_new_item(this.active_survey.items.length))
         );
       } else {
         this.active_item = JSON.parse(JSON.stringify(this.default_new_item));

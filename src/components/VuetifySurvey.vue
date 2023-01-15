@@ -133,6 +133,56 @@
             >{{ props.isFilled || props.isHovered ? 'mdi-emoticon' : 'mdi-emoticon-outline' }}</v-icon>
           </template>
         </v-rating>
+
+        <v-menu
+          v-if="item.type == 'date'"
+          :ref="'item_' + item.id"
+          v-model="item_menus[item.id]"
+          :close-on-content-click="false"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              v-model="active_data[item.id]"
+              prepend-icon="mdi-calendar"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker v-model="active_data[item.id]" @input="item_menus[item.id] = false">
+          </v-date-picker>
+        </v-menu>
+
+        <v-menu
+          v-if="item.type == 'birthday'"
+          :ref="'item_' + item.id"
+          v-model="item_menus[item.id]"
+          :close-on-content-click="false"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              v-model="active_data[item.id]"
+              prepend-icon="mdi-calendar"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker
+            v-model="active_data[item.id]"
+            :active-picker.sync="item_date_pickers[item.id]"
+            :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
+            min="1900-01-01"
+            v-bind="translate_props(item.props)"
+            @change="close_menu(item.id)"
+          ></v-date-picker>
+        </v-menu>
       </div>
     </template>
   </div>
@@ -142,6 +192,7 @@
 // eslint-disable-next-line
 import Interpreter from "../interpreter.js";
 import * as acorn from "acorn";
+import Vue from "vue";
 
 export default {
   name: "VuetifySurvey",
@@ -151,7 +202,7 @@ export default {
       type: Object,
       required: true,
     },
-    data: {
+    value: {
       type: Object,
       required: false,
       default: () => {},
@@ -160,24 +211,48 @@ export default {
   data() {
     let default_data = {};
     this.survey.items.forEach((item) => {
-      if (item.type === "checkboxes") {
-        default_data[item.id] = [];
-      } else if (item.type === "checkbox") {
-        default_data[item.id] = false;
-      } else if (item.type == "textarea" || item.type == "text-field") {
-        default_data[item.id] = "";
-      } else if (item.type == "rating") {
-        default_data[item.id] = 0;
-      } else if (item.type == "mood") {
-        default_data[item.id] = 0;
+      if (item.default_value) {
+        default_data[item.id] = item.default_value;
+      } else {
+        if (item.type === "checkboxes") {
+          default_data[item.id] = [];
+        } else if (item.type === "checkbox" || item.type === "switch") {
+          default_data[item.id] = null;
+        } else if (item.type == "textarea" || item.type == "text-field") {
+          default_data[item.id] = null;
+        } else if (item.type == "rating") {
+          default_data[item.id] = null;
+        } else if (item.type == "mood") {
+          default_data[item.id] = null;
+        }
       }
     });
 
     return {
-      active_data: this.data
-        ? Object.extend(default_data, this.data)
+      item_menus: {},
+      item_date_pickers: {},
+      active_data: this.value
+        ? Object.assign(default_data, this.value)
         : default_data,
     };
+  },
+  watch: {
+    active_data: {
+      handler: function (newVal) {
+        this.$emit("input", newVal);
+      },
+      deep: true,
+    },
+    item_menus: {
+      handler: function () {
+        for (let key in this.item_menus) {
+          if (this.item_menus[key]) {
+            setTimeout(() => Vue.set(this.item_date_pickers, key, "YEAR"));
+          }
+        }
+      },
+      deep: true,
+    },
   },
   methods: {
     item_visible(item) {
@@ -205,7 +280,11 @@ export default {
         let result = interpreter.value;
 
         if (typeof result === "object") {
-          if (result.class == "Array" && result.properties && result.properties.length == 0) {
+          if (
+            result.class == "Array" &&
+            result.properties &&
+            result.properties.length == 0
+          ) {
             return false;
           }
           return true;
@@ -244,6 +323,9 @@ export default {
         return Math.abs(item.max).toString().length + 2;
       }
       return 20;
+    },
+    close_menu(item_id) {
+      Vue.set(this.item_menus, item_id, false);
     },
   },
 };

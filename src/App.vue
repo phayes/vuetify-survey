@@ -2,29 +2,13 @@
   <v-app>
     <v-app-bar app color="primary" dark>
       <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
+        <h1>Vuetify Survey</h1>
       </div>
 
       <v-spacer></v-spacer>
 
-      <v-btn href="https://github.com/vuetifyjs/vuetify/releases/latest" target="_blank" text>
-        <span class="mr-2">Latest Release</span>
+      <v-btn href="https://github.com/phayes/vuetify-survey" target="_blank" text>
+        <span class="mr-2">Documentation</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
     </v-app-bar>
@@ -33,12 +17,32 @@
       <v-layout>
         <v-flex xs6>
           <v-sheet elevation="6" class="pa-6 ma-6">
-            <VuetifySurvey :survey="survey_data" />
+            <VuetifySurveyEditor v-model="survey_def" />
+          </v-sheet>
+
+          <v-sheet elevation="6" class="pa-6 ma-6">
+            <h3>Survey Definition</h3>
+            <v-textarea
+              dense
+              v-model="survey_def_json"
+              rows="10"
+              style="font-size: 0.8rem; font-family: Courier, monospace;"
+            />
           </v-sheet>
         </v-flex>
         <v-flex xs6>
           <v-sheet elevation="6" class="pa-6 ma-6">
-            <VuetifySurveyEditor v-model="survey_data" />
+            <VuetifySurvey :survey="survey_def" v-model="survey_data" />
+          </v-sheet>
+
+          <v-sheet elevation="6" class="pa-6 ma-6">
+            <h3>Survey Data</h3>
+            <v-textarea
+              dense
+              v-model="survey_data_json"
+              rows="10"
+              style="font-size: 0.8rem; font-family: Courier, monospace;"
+            />
           </v-sheet>
         </v-flex>
       </v-layout>
@@ -59,7 +63,8 @@ export default {
   },
 
   data: () => ({
-    survey_data: {
+    survey_data: {},
+    survey_def: {
       title: "Survey 1",
       items: [
         {
@@ -95,5 +100,18 @@ export default {
       ],
     },
   }),
+  computed: {
+    survey_data_json() {
+      return JSON.stringify(this.survey_data, null, 2);
+    },
+    survey_def_json: {
+      get() {
+        return JSON.stringify(this.survey_def, null, 2);
+      },
+      set(value) {
+        this.survey_def = JSON.parse(value);
+      },
+    },
+  },
 };
 </script>
