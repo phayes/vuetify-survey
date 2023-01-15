@@ -83,13 +83,13 @@ To view sample application run `yarn install && yarn serve`
 - `instructions`
      - type: `String`
 - `items`
-     - type: `Array` of `SurveyItemDefinition`
+     - type: `Array` of `ItemDefinition`
 
 ------------
 
-### Data Structure: `SurveyItemDefinition`
+### Data Structure: `ItemDefinition`
 
-`SurveyItemDefinition` is an object that defines a survey item, like a text-field or a checkbox.
+`ItemDefinition` is an object that defines a survey item, like a text-field or a checkbox.
 
 #### core properties:
 - `id`
@@ -118,7 +118,7 @@ To view sample application run `yarn install && yarn serve`
 
 #### additional properties:
  - `items`
-     - type: `Array` of `SurveyOptionDefinition`
+     - type: `Array` of `OptionDefinition`
      - applies to: `select`, `radio-group`, `checkboxes`
  - `integer_only`
      - type: `Boolean`
@@ -144,9 +144,9 @@ To view sample application run `yarn install && yarn serve`
 
 ------------
 
-### Data Structure: `SurveyOptionDefinition`
+### Data Structure: `OptionDefinition`
 
-For survey items that provide varios options to select (`select`, `radio-group`, `checkboxes`), `items` is set an array of `SurveyOptionDefinition` to define what options are available.
+For survey items that provide varios options to select (`select`, `radio-group`, `checkboxes`), `items` is set an array of `OptionDefinition` to define what options are available.
 
 #### core properties:
 - `value`
