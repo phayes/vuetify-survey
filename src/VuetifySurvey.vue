@@ -18,7 +18,11 @@
           :style="item.style"
           v-bind="translate_props(item.props)"
         ></v-checkbox>
-        <div v-if="item.type === 'checkboxes'" :class="'vuetify-survey-item vuetify-survey-item-checkboxes ' + item.class" :style="item.style">
+        <div
+          v-if="item.type === 'checkboxes'"
+          :class="'vuetify-survey-item vuetify-survey-item-checkboxes ' + item.class"
+          :style="item.style"
+        >
           <v-checkbox
             v-for="(checkbox_item, checkbox_item_idx) in item.items"
             :key="checkbox_item_idx"
@@ -147,8 +151,7 @@
               v-on="on"
             ></v-text-field>
           </template>
-          <v-date-picker v-model="active_data[item.id]" @input="item_menus[item.id] = false">
-          </v-date-picker>
+          <v-date-picker v-model="active_data[item.id]" @input="item_menus[item.id] = false"></v-date-picker>
         </v-menu>
 
         <v-menu
@@ -206,34 +209,33 @@ export default {
     },
   },
   data() {
-    let default_data = {};
-    this.survey.items.forEach((item) => {
-      if (item.default_value) {
-        default_data[item.id] = item.default_value;
-      } else {
-        if (item.type === "checkboxes") {
-          default_data[item.id] = [];
-        } else if (item.type === "checkbox" || item.type === "switch") {
-          default_data[item.id] = null;
-        } else if (item.type == "textarea" || item.type == "text-field") {
-          default_data[item.id] = null;
-        } else if (item.type == "rating") {
-          default_data[item.id] = null;
-        } else if (item.type == "mood") {
-          default_data[item.id] = null;
-        }
-      }
-    });
+    let default_data = this.get_default_data();
 
-    return {
+    let data = {
       item_menus: {},
       item_date_pickers: {},
       active_data: this.value
         ? Object.assign(default_data, this.value)
         : default_data,
     };
+
+    return data;
   },
   watch: {
+    survey: {
+      handler: function (survey) {
+        let default_data;
+
+        survey.items.forEach((item) => {
+          let item_id = item.id
+          if (!(item_id in this.active_data)) {
+            if (!default_data) default_data = this.get_default_data();
+            Vue.set(this.active_data, item_id, default_data[item_id]);
+          }
+        });
+      },
+      deep: true,
+    },
     active_data: {
       handler: function (newVal) {
         this.$emit("input", newVal);
@@ -252,6 +254,28 @@ export default {
     },
   },
   methods: {
+    get_default_data() {
+      let default_data = {};
+      this.survey.items.forEach((item) => {
+        if (item.default_value) {
+          default_data[item.id] = item.default_value;
+        } else {
+          if (item.type === "checkboxes") {
+            default_data[item.id] = [];
+          } else if (item.type === "checkbox" || item.type === "switch") {
+            default_data[item.id] = null;
+          } else if (item.type == "textarea" || item.type == "text-field") {
+            default_data[item.id] = null;
+          } else if (item.type == "rating") {
+            default_data[item.id] = null;
+          } else if (item.type == "mood") {
+            default_data[item.id] = null;
+          }
+        }
+      });
+
+      return default_data;
+    },
     item_visible(item) {
       if (item.visible === true) {
         return true;
