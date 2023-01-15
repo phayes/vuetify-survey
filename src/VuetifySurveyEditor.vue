@@ -95,7 +95,7 @@ export default {
       type: Object,
       required: true,
     },
-    allow_edit_item_style: {
+    show_item_id: {
       type: Boolean,
       default: true,
     },
@@ -103,7 +103,11 @@ export default {
       type: Boolean,
       default: true,
     },
-    show_item_id: {
+    allow_edit_item_style: {
+      type: Boolean,
+      default: true,
+    },
+    allow_edit_visible: {
       type: Boolean,
       default: true,
     },

@@ -7,6 +7,9 @@
 
     <template v-for="(item, index) in survey.items">
       <div v-if="item_visible(item)" :key="index" :class="item.class" :style="item.style">
+
+        <slot name="before-item" v-bind:item="item"></slot>
+
         <h3 v-if="item.title">{{ item.title }}</h3>
 
         <p v-if="item.instructions" style="white-space: pre">{{ item.instructions }}</p>
@@ -203,6 +206,8 @@
             @change="close_menu(item.id)"
           ></v-date-picker>
         </v-menu>
+
+        <slot name="before-after" v-bind:item="item"></slot>
       </div>
     </template>
   </div>
