@@ -9,8 +9,6 @@
   },
   "dependencies": {
     "acorn": "^8.8.1",
-    "core-js": "^3.8.3",
-    "json-loader": "^0.5.7",
     "vue": "^2.6.14",
     "vuedraggable": "^2.24.3",
     "vuetify": "^2.6.0"
