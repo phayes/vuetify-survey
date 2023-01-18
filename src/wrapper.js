@@ -1,11 +1,16 @@
 // Import vue component
 import VuetifySurvey from './VuetifySurvey.vue';
+import VuetifySurveyEditor from './VuetifySurveyEditor.vue';
+import VuetifySurveyItemEditor from './VuetifySurveyItemEditor.vue';
+
 
 // Declare install function executed by Vue.use()
 export function install(Vue) {
 	if (install.installed) return;
 	install.installed = true;
 	Vue.component('VuetifySurvey', VuetifySurvey);
+    Vue.component('VuetifySurveyEditor', VuetifySurveyEditor);
+    Vue.component('VuetifySurveyItemEditor', VuetifySurveyItemEditor);
 }
 
 // Create module definition for Vue.use()
@@ -25,4 +30,6 @@ if (GlobalVue) {
 }
 
 // To allow use as module (npm/webpack/etc.) export component
-export default VuetifySurvey;
+export default {
+    VuetifySurvey, VuetifySurveyEditor, VuetifySurveyItemEditor
+};
