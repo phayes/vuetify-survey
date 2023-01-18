@@ -4,7 +4,7 @@ import buble from '@rollup/plugin-buble'; // Transpile/polyfill with reasonable 
 export default {
     input: 'src/wrapper.js', // Path relative to package.json
     output: {
-        name: 'VuetifySurvey',
+        name: 'vuetifysurvey',
         exports: 'named',
     },
     plugins: [
